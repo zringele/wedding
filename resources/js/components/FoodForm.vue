@@ -4,7 +4,7 @@
             <div class="top">
             </div>
             <div class="form">
-                <div class ="info"  v-if="willAttend === null">
+                <div class ="info"  v-if="will_attend === null">
                     <h1>Žilvino ir Monikos</h1>
                     <h1>Vestuvės</h1>
                     <p class= "line">________________________________________</p>
@@ -24,20 +24,20 @@
                     <p class= "line">________________________________________</p>
                     <input type="text" v-model="name" placeholder="Vardas">
                 </div>
-                <div  class ="info" v-else-if="willAttend === true">
+                <div  class ="info" v-else-if="will_attend === true">
                     <form>
                         <div class="form-group">
                             <label for="exampleInputEmail1">El. pašto adresas</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             <small id="emailHelp" class="form-text text-muted">Šiuo pašto adresu atsiųsim priminimą</small>
                         </div>
                         <br>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Alergijos</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <label for="allergies">Alergijos</label>
+                            <input v-model="allergies" type="text" class="form-control" id="allergies" aria-describedby="emailHelp">
                         </div>
                         <br>
-                        <h2>Pagrindinis patiekalas</h2>
+                        <label>Pagrindinis patiekalas</label>
                         <h3>{{meals[meal].name}}</h3>
                         <div class="wrapper">
                             <div @click="nextImage" class="arrow right"></div>
@@ -49,7 +49,7 @@
                         </span>
                     </form>
                 </div>
-                <div v-if="willAttend === null">
+                <div v-if="will_attend === null">
                     <span  @click="going(1)">
                         <div class="accept button">Dalyvausiu</div>
                     </span>
@@ -68,8 +68,9 @@
         data() {
             return {
                 name: '',
+                email: '',
                 surname: '',
-                willAttend: null,
+                will_attend: null,
                 meal: 0,
                 meals: [
                     {
@@ -91,13 +92,19 @@
         },
         methods: {
             regretting() {
-                this.willAttend = false;
+                this.will_attend = false;
             },
             going() {
-                this.willAttend = true;
+                this.will_attend = true;
             },
             submit() {
-                console.log('submitting');
+                axios.post('/api/guest', {
+                    meal: this.meals[this.meal].name,
+                    email: this.email,
+                    will_attend: this.will_attend,
+                    name: this.name,
+                    allergies: this.allergies
+                })
             },
             nextImage() {
                 this.meal = this.meal === 2 ? 0 : this.meal + 1;

@@ -2158,8 +2158,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       name: '',
+      email: '',
       surname: '',
-      willAttend: null,
+      will_attend: null,
       meal: 0,
       meals: [{
         name: 'Antienos confit',
@@ -2177,13 +2178,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     regretting: function regretting() {
-      this.willAttend = false;
+      this.will_attend = false;
     },
     going: function going() {
-      this.willAttend = true;
+      this.will_attend = true;
     },
     submit: function submit() {
-      console.log('submitting');
+      axios.post('/api/guest', {
+        meal: this.meals[this.meal].name,
+        email: this.email,
+        will_attend: this.will_attend,
+        name: this.name,
+        allergies: this.allergies
+      });
     },
     nextImage: function nextImage() {
       this.meal = this.meal === 2 ? 0 : this.meal + 1;
@@ -20822,7 +20829,7 @@ var render = function() {
       _c("div", { staticClass: "top" }),
       _vm._v(" "),
       _c("div", { staticClass: "form" }, [
-        _vm.willAttend === null
+        _vm.will_attend === null
           ? _c("div", { staticClass: "info" }, [
               _c("h1", [_vm._v("Žilvino ir Monikos")]),
               _vm._v(" "),
@@ -20883,18 +20890,87 @@ var render = function() {
                 }
               })
             ])
-          : _vm.willAttend === true
+          : _vm.will_attend === true
           ? _c("div", { staticClass: "info" }, [
               _c("form", [
-                _vm._m(0),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                    _vm._v("El. pašto adresas")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.email,
+                        expression: "email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      id: "exampleInputEmail1",
+                      "aria-describedby": "emailHelp"
+                    },
+                    domProps: { value: _vm.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      staticClass: "form-text text-muted",
+                      attrs: { id: "emailHelp" }
+                    },
+                    [_vm._v("Šiuo pašto adresu atsiųsim priminimą")]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "allergies" } }, [
+                    _vm._v("Alergijos")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.allergies,
+                        expression: "allergies"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "allergies",
+                      "aria-describedby": "emailHelp"
+                    },
+                    domProps: { value: _vm.allergies },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.allergies = $event.target.value
+                      }
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _c("h2", [_vm._v("Pagrindinis patiekalas")]),
+                _c("label", [_vm._v("Pagrindinis patiekalas")]),
                 _vm._v(" "),
                 _c("h3", [_vm._v(_vm._s(_vm.meals[_vm.meal].name))]),
                 _vm._v(" "),
@@ -20924,7 +21000,7 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.willAttend === null
+        _vm.will_attend === null
           ? _c("div", [
               _c(
                 "span",
@@ -20953,52 +21029,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-        _vm._v("El. pašto adresas")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "email",
-          id: "exampleInputEmail1",
-          "aria-describedby": "emailHelp"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "small",
-        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-        [_vm._v("Šiuo pašto adresu atsiųsim priminimą")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-        _vm._v("Alergijos")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "text",
-          id: "exampleInputEmail1",
-          "aria-describedby": "emailHelp"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
