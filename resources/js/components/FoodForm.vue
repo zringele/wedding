@@ -3,7 +3,8 @@
         <div class="row">
             <div class="top">
             </div>
-            <div class="form">
+            <div class="form" >
+                <span v-if="submitted !== true">
                 <div class ="info"  v-if="will_attend === null">
                     <h1>Žilvino ir Monikos</h1>
                     <h1>Vestuvės</h1>
@@ -49,6 +50,11 @@
                         </span>
                     </form>
                 </div>
+                <div v-if="will_attend === false">
+                    <div v-else class="lauksim">
+                    <h1>Labai liūdna </h1>
+                </div>
+                </div>
                 <div v-if="will_attend === null">
                     <span  @click="going(1)">
                         <div class="accept button">Dalyvausiu</div>
@@ -57,7 +63,12 @@
                         <div class="regret button">Negalėsiu</div>
                     </span>
                 </div>
+                </span>
+                <div v-else class="lauksim">
+                    <h1>Nekantriai lauksime jūsų šventėje!</h1>
+                </div>
             </div>
+
         </div>
     </form>
 </template>
@@ -71,6 +82,7 @@
                 email: '',
                 surname: '',
                 will_attend: null,
+                submitted: false,
                 meal: 0,
                 meals: [
                     {
@@ -104,7 +116,8 @@
                     will_attend: this.will_attend,
                     name: this.name,
                     allergies: this.allergies
-                })
+                });
+                this.submitted = true;
             },
             nextImage() {
                 this.meal = this.meal === 2 ? 0 : this.meal + 1;
@@ -117,6 +130,12 @@
 </script>
 
 <style scoped>
+    .form {
+        max-width: 100vW;
+    }
+    .lauksim {
+        padding: 50px 10px;
+    }
     .image {
         border-radius: 10px;
     }
@@ -135,6 +154,11 @@
         background-image: url("/arrow.png");
         background-position: center;
         background-size: cover;
+    }
+    @media only screen and (max-width: 400px) {
+        .button {
+            width: calc(100vW - 55px) !important;
+        }
     }
     .arrow.left {
         left: 0;

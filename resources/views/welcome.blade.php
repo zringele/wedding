@@ -15,10 +15,17 @@
     </head>
     <body>
         <div id="app">
-            <flipas></flipas>
+            <flipas class="no-mobile"></flipas>
             <food-form>
 
             </food-form>
         </div>
     </body>
 </html>
+<style>
+    @media only screen and (max-width: 559px) {
+        .no-mobile {
+            display: none;
+        }
+    }
+</style>

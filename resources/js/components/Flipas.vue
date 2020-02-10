@@ -1,6 +1,6 @@
 <template>
     <flip-clock ref="clock" :options="{
-        digit: (Date.UTC(2020, 7, 18, 14) - Date.now()) / 1000,
+        digit: (Date.UTC(2020, 6, 18, 14) - Date.now()) / 1000,
         countdown: true,
         clockFace: 'DailyCounter',
     }" />
@@ -15,8 +15,6 @@
             FlipClock
         },
         mounted() {
-            console.log()
-            console.log(Date.now());
         }
     }
 </script>
