@@ -138,6 +138,7 @@
     }
     .image {
         border-radius: 10px;
+        max-width: calc(100vW - 20px);
     }
     .wrapper {
         position: relative;
