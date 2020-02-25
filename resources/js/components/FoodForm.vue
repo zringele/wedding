@@ -94,7 +94,7 @@
                         src: '/lamb.JPG',
                     },
                     {
-                        name: 'Štrudelis',
+                        name: 'Veganiškas štrudelis',
                         src: '/vegan.JPG',
                     },
                 ],
